@@ -29,7 +29,7 @@ DEBUG = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Your frontend's origin
 ]
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["nagarik-api.onrender.com","127.0.0.1","localhost"]
 
 
 # Application definition
