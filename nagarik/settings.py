@@ -29,8 +29,27 @@ DEBUG = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Your frontend's origin
 ]
-ALLOWED_HOSTS = ["nagarik-api.onrender.com","127.0.0.1","localhost"]
+CSRF_TRUSTED_ORIGINS = [
+    'nagarik-api.onrender.com',
+]
 
+ALLOWED_HOSTS = ["nagarik-api.onrender.com","127.0.0.1","localhost"]
+# Optional: to allow specific headers/methods
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+    "x-csrftoken",
+    "x-requested-with",
+]
+
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+]
 
 # Application definition
 
@@ -45,24 +64,43 @@ INSTALLED_APPS = [
     'corsheaders',
     'nagarikk',
 ]
+SESSION_COOKIE_SAMESITE = None  # 🔥 Required for cross-origin cookies
+SESSION_COOKIE_SECURE = False   # Should be True in production with HTTPS
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = None  # <--- ADD THIS
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 twilio_account_sid=os.getenv("ACCOUNT_SID")
 twilio_auth_token=os.getenv("AUTH_TOKEN")
 twilio_phone_number=os.getenv("PHONENUMBER")
 MIDDLEWARE = [
-    
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-    
-    
+    "corsheaders.middleware.CorsMiddleware",  # FIRST
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-CORS_ORIGIN_ALLOW_ALL = True
+
+# MIDDLEWARE = [
+#     'corsheaders.middleware.CorsMiddleware',
+#     'django.middleware.security.SecurityMiddleware',
+#     'django.contrib.sessions.middleware.SessionMiddleware',
+     
+#     'django.middleware.common.CommonMiddleware',
+#     'django.middleware.csrf.CsrfViewMiddleware',
+#     'django.contrib.auth.middleware.AuthenticationMiddleware',
+#     'django.contrib.messages.middleware.MessageMiddleware',
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+#     'whitenoise.middleware.WhiteNoiseMiddleware',
+    
+    
+# ]
+
+
+# CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'nagarik.urls'
 AUTH_USER_MODEL = 'nagarikk.User'  # Make sure this points to your custom User model
 

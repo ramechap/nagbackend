@@ -2,6 +2,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.http import require_GET
 from .forms import OTPVerificationForm, ProfileForm,SignUpForm
 from .models import User, Profile
 from django.contrib.auth import login,authenticate,logout
@@ -72,7 +73,7 @@ def signup(request):
         return JsonResponse({'message': 'OTP sent successfully'})
     return JsonResponse({'error': 'Invalid request'}, status=400)
 @csrf_exempt
-@csrf_exempt
+
 def loginn(request):
     """Handle user sign up by sending OTP."""
     if request.method == "POST":
@@ -213,13 +214,17 @@ def clean_data(user_data):
 
     return user_data
 
-@login_required
 def check_auth(request):
-    return JsonResponse({'authenticated': request.user.is_authenticated})
+    if request.user.is_authenticated:
+        return JsonResponse({'message': 'Authenticated'}, status=200)
+    else:
+        return JsonResponse({'message': 'Unauthorized'}, status=401)
         
 @login_required
 
 def view_profile(request):
+    if request.user.is_authenticated:
+        print("no ")
     """View the logged-in user's profile."""
     if request.user.is_authenticated:
 
