@@ -28,7 +28,7 @@ DEBUG = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Your frontend's origin
-    "ramechap.github.io/nagarika"
+    "https://ramechap.github.io"
 ]
 CSRF_TRUSTED_ORIGINS = [
     'nagarik-api.onrender.com',
