@@ -74,12 +74,12 @@ class User(AbstractBaseUser, PermissionsMixin):
             auth_token = os.getenv("AUTH_TOKEN")
             client = Client(account_sid, auth_token)
             print(otp)
-            # message = client.messages.create(
-            #     body=f"Your OTP is {otp}",
-            #     from_=os.getenv("PHONENUMBER"),
+            message = client.messages.create(
+                body=f"Your OTP is {otp}",
+                from_=os.getenv("PHONENUMBER"),
               
-            #     to=self.phone_number
-            # )
+                to=self.phone_number
+            )
             
             
             def __str__(self):
