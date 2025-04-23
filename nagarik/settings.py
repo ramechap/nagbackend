@@ -33,7 +33,7 @@ CSRF_TRUSTED_ORIGINS = [
     'nagarik-api.onrender.com',
 ]
 
-ALLOWED_HOSTS = ["nagarik-api.onrender.com","127.0.0.1","localhost"]
+ALLOWED_HOSTS = ["nagarik-api.onrender.com","127.0.0.1","localhost","ramechap.github.io/nagarika"]
 # Optional: to allow specific headers/methods
 CORS_ALLOW_HEADERS = [
     "authorization",
@@ -82,6 +82,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 # MIDDLEWARE = [
