@@ -223,8 +223,17 @@ def clean_data(user_data):
 @login_required
 def check_auth(request):
     if request.user.is_authenticated:
-        return JsonResponse({"authenticated": True, "user": request.user})
-    return JsonResponse({"message": "Unauthorized"}, status=401)
+        return JsonResponse({
+            "authenticated": True,
+            "user": {
+                "id": request.user.id,
+                "username": request.user.username,
+                "phone_number": request.user.phone_number,  # if custom field
+                # add other safe fields as needed
+            }
+        })
+
+    return JsonResponse({"authenticated": False,"message": "Unauthorized"}, status=401)
         
 @login_required
 
