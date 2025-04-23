@@ -213,23 +213,21 @@ def clean_data(user_data):
 
 
     return user_data
-
+@login_required
 def check_auth(request):
     if request.user.is_authenticated:
-        return JsonResponse({'message': 'Authenticated'}, status=200)
-    else:
-        return JsonResponse({'message': 'Unauthorized'}, status=401)
+        return JsonResponse({"authenticated": True, "user": request.user})
+    return JsonResponse({"message": "Unauthorized"}, status=401)
         
 @login_required
 
 def view_profile(request):
-    if request.user.is_authenticated:
-        print("no ")
+    
     """View the logged-in user's profile."""
     if request.user.is_authenticated:
 
         user = request.user  # Get the currently logged-in user
-
+        print(user)
         try:
             profile = user.profile  # Get the user's profile
 
