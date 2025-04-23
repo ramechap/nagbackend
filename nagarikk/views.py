@@ -27,8 +27,17 @@ def verify_otp(request):
                 login(request,user)
                 print("loginned")
                 # token = user.generate_token()
+                response = JsonResponse({'message': 'Login successful'})
+                response.set_cookie(
+                    key='sessionid',
+                    value=request.session.session_key,
+                    httponly=True,
+                    secure=True,                # 🔥 Required for HTTPS
+                    samesite='None',            # 🔥 Required for cross-site
+                )
+            
         
-                return JsonResponse({'message': 'OTP verified successfully'}, status=200)
+                return JsonResponse({'message': 'OTP verified successfully','responst':response}, status=200)
             else:
                 return JsonResponse({'error': 'Invalid OTP'}, status=400)
 
