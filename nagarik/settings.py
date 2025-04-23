@@ -65,10 +65,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'nagarikk',
 ]
-SESSION_COOKIE_SAMESITE = None  # 🔥 Required for cross-origin cookies
-SESSION_COOKIE_SECURE = False   # Should be True in production with HTTPS
-CSRF_COOKIE_SECURE = False
-CSRF_COOKIE_SAMESITE = None  # <--- ADD THIS
+SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = True    # Set to True if you're using HTTPS
+CSRF_COOKIE_SAMESITE = None
+CSRF_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = ["http://localhost:3000"]
 twilio_account_sid=os.getenv("ACCOUNT_SID")
