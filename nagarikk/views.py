@@ -120,6 +120,7 @@ def loginn(request):
 @csrf_exempt
 
 def create_profile(request):
+    
     if request.method == "POST":
         try:
             
@@ -196,6 +197,7 @@ def create_profile(request):
                 backimage=backimage,
             )
             profile.save()
+            
              # After creating the profile, log the user in
             user = User.objects.get(phone_number=user_data.get('phone_number'))
             login(request, user)  # This will create a session for the logged-in user
@@ -227,7 +229,7 @@ def check_auth(request):
             "authenticated": True,
             "user": {
                 "id": request.user.id,
-                "username": request.user.username,
+              
                 "phone_number": request.user.phone_number,  # if custom field
                 # add other safe fields as needed
             }
